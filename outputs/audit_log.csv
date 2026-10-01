@@ -79,3 +79,83 @@ Group030_missing_data.csv,CORD000871,is_expedited_delivery,missing,<MISSING>,Fal
 Group030_missing_data.csv,CORD000878,is_expedited_delivery,missing,<MISSING>,True,Choose 0/1 state with smaller seasonal-model absolute residual,M08: regular residual=10.0002; expedited residual=0.0003,high
 Group030_missing_data.csv,CORD000964,is_expedited_delivery,missing,<MISSING>,False,Choose 0/1 state with smaller seasonal-model absolute residual,M08: regular residual=0.0019; expedited residual=9.9979,high
 Group030_missing_data.csv,CORD000991,is_expedited_delivery,missing,<MISSING>,True,Choose 0/1 state with smaller seasonal-model absolute residual,M08: regular residual=10.5022; expedited residual=0.0024,high
+Group030_dirty_data.csv,CORD000007,is_happy_customer,dirty,False,True,Apply frozen local VADER compound threshold and sentinel rule,D07: verified lexicon; compound >= 0.05,high
+Group030_dirty_data.csv,CORD000017,nearest_warehouse,dirty,THOMPSON WH,Thompson,Select minimum Haversine distance to supplied warehouses,"D04: 6,371 km Haversine comparison and canonical warehouse name",high
+Group030_dirty_data.csv,CORD000035,nearest_warehouse,dirty,THOMPSON WH,Thompson,Select minimum Haversine distance to supplied warehouses,"D04: 6,371 km Haversine comparison and canonical warehouse name",high
+Group030_dirty_data.csv,CORD000044,distance_to_nearest_warehouse,dirty,11.5264,7.7764,Recalculate Haversine distance to the nearest warehouse,"D05: 6,371 km radius and four-decimal reconstruction",high
+Group030_dirty_data.csv,CORD000045,is_happy_customer,dirty,False,True,Apply frozen local VADER compound threshold and sentinel rule,D07: verified lexicon; compound >= 0.05,high
+Group030_dirty_data.csv,CORD000049,nearest_warehouse,dirty,Baker's,Bakers,Select minimum Haversine distance to supplied warehouses,"D04: 6,371 km Haversine comparison and canonical warehouse name",high
+Group030_dirty_data.csv,CORD000058,nearest_warehouse,dirty,Baker's,Bakers,Select minimum Haversine distance to supplied warehouses,"D04: 6,371 km Haversine comparison and canonical warehouse name",high
+Group030_dirty_data.csv,CORD000061,customer_lat,dirty,37.840648,-37.840648,Restore Melbourne latitude sign while retaining precision,D03: supplied warehouses and all reliable customers have southern latitude,high
+Group030_dirty_data.csv,CORD000062,is_happy_customer,dirty,True,False,Apply frozen local VADER compound threshold and sentinel rule,D07: verified lexicon; compound >= 0.05,high
+Group030_dirty_data.csv,CORD000076,order_price,dirty,5564.42,5480.92,Recalculate cart total from inferred current unit prices,D06: rank-12 price system with zero held-out cart-equation error,high
+Group030_dirty_data.csv,CORD000108,season,dirty,Summer,Winter,Australian season derived from order-date month,D02: published month-to-season mapping,high
+Group030_dirty_data.csv,CORD000110,date,dirty,"Aug 26, 2019",2019-08-26,Parse calendar date using published year-first/day-first rules,D01: valid date represented in required YYYY-MM-DD format,high
+Group030_dirty_data.csv,CORD000132,customer_lat,dirty,37.847483,-37.847483,Restore Melbourne latitude sign while retaining precision,D03: supplied warehouses and all reliable customers have southern latitude,high
+Group030_dirty_data.csv,CORD000134,order_price,dirty,9835.27,9713.52,Recalculate cart total from inferred current unit prices,D06: rank-12 price system with zero held-out cart-equation error,high
+Group030_dirty_data.csv,CORD000135,distance_to_nearest_warehouse,dirty,3.8102,2.5602,Recalculate Haversine distance to the nearest warehouse,"D05: 6,371 km radius and four-decimal reconstruction",high
+Group030_dirty_data.csv,CORD000146,distance_to_nearest_warehouse,dirty,11.8314,8.0814,Recalculate Haversine distance to the nearest warehouse,"D05: 6,371 km radius and four-decimal reconstruction",high
+Group030_dirty_data.csv,CORD000160,customer_lat,dirty,37.798659,-37.798659,Restore Melbourne latitude sign while retaining precision,D03: supplied warehouses and all reliable customers have southern latitude,high
+Group030_dirty_data.csv,CORD000189,nearest_warehouse,dirty,Nickolsen,Nickolson,Select minimum Haversine distance to supplied warehouses,"D04: 6,371 km Haversine comparison and canonical warehouse name",high
+Group030_dirty_data.csv,CORD000193,season,dirty,Autumn,Spring,Australian season derived from order-date month,D02: published month-to-season mapping,high
+Group030_dirty_data.csv,CORD000195,customer_lat,dirty,37.888382,-37.888382,Restore Melbourne latitude sign while retaining precision,D03: supplied warehouses and all reliable customers have southern latitude,high
+Group030_dirty_data.csv,CORD000202,customer_lat,dirty,37.858987,-37.858987,Restore Melbourne latitude sign while retaining precision,D03: supplied warehouses and all reliable customers have southern latitude,high
+Group030_dirty_data.csv,CORD000210,distance_to_nearest_warehouse,dirty,11.2315,9.9815,Recalculate Haversine distance to the nearest warehouse,"D05: 6,371 km radius and four-decimal reconstruction",high
+Group030_dirty_data.csv,CORD000214,season,dirty,Winter,Summer,Australian season derived from order-date month,D02: published month-to-season mapping,high
+Group030_dirty_data.csv,CORD000243,date,dirty,01/03/2019,2019-03-01,Parse calendar date using published year-first/day-first rules,D01: valid date represented in required YYYY-MM-DD format,high
+Group030_dirty_data.csv,CORD000263,order_price,dirty,4497.3,4375.55,Recalculate cart total from inferred current unit prices,D06: rank-12 price system with zero held-out cart-equation error,high
+Group030_dirty_data.csv,CORD000273,date,dirty,14/08/2019,2019-08-14,Parse calendar date using published year-first/day-first rules,D01: valid date represented in required YYYY-MM-DD format,high
+Group030_dirty_data.csv,CORD000275,customer_lat,dirty,37.767692,-37.767692,Restore Melbourne latitude sign while retaining precision,D03: supplied warehouses and all reliable customers have southern latitude,high
+Group030_dirty_data.csv,CORD000276,order_price,dirty,5866.02,5828.77,Recalculate cart total from inferred current unit prices,D06: rank-12 price system with zero held-out cart-equation error,high
+Group030_dirty_data.csv,CORD000280,date,dirty,2019/08/03,2019-08-03,Parse calendar date using published year-first/day-first rules,D01: valid date represented in required YYYY-MM-DD format,high
+Group030_dirty_data.csv,CORD000291,distance_to_nearest_warehouse,dirty,8.8096,7.5596,Recalculate Haversine distance to the nearest warehouse,"D05: 6,371 km radius and four-decimal reconstruction",high
+Group030_dirty_data.csv,CORD000295,nearest_warehouse,dirty,THOMPSON WH,Thompson,Select minimum Haversine distance to supplied warehouses,"D04: 6,371 km Haversine comparison and canonical warehouse name",high
+Group030_dirty_data.csv,CORD000296,is_happy_customer,dirty,True,False,Apply frozen local VADER compound threshold and sentinel rule,D07: verified lexicon; compound >= 0.05,high
+Group030_dirty_data.csv,CORD000316,date,dirty,2019/03/14,2019-03-14,Parse calendar date using published year-first/day-first rules,D01: valid date represented in required YYYY-MM-DD format,high
+Group030_dirty_data.csv,CORD000324,date,dirty,27/04/2019,2019-04-27,Parse calendar date using published year-first/day-first rules,D01: valid date represented in required YYYY-MM-DD format,high
+Group030_dirty_data.csv,CORD000332,date,dirty,"Feb 03, 2019",2019-02-03,Parse calendar date using published year-first/day-first rules,D01: valid date represented in required YYYY-MM-DD format,high
+Group030_dirty_data.csv,CORD000336,order_price,dirty,9519.8,9482.55,Recalculate cart total from inferred current unit prices,D06: rank-12 price system with zero held-out cart-equation error,high
+Group030_dirty_data.csv,CORD000349,season,dirty,Summer,Winter,Australian season derived from order-date month,D02: published month-to-season mapping,high
+Group030_dirty_data.csv,CORD000373,date,dirty,2019/10/31,2019-10-31,Parse calendar date using published year-first/day-first rules,D01: valid date represented in required YYYY-MM-DD format,high
+Group030_dirty_data.csv,CORD000385,is_happy_customer,dirty,True,False,Apply frozen local VADER compound threshold and sentinel rule,D07: verified lexicon; compound >= 0.05,high
+Group030_dirty_data.csv,CORD000388,order_price,dirty,884.99,801.49,Recalculate cart total from inferred current unit prices,D06: rank-12 price system with zero held-out cart-equation error,high
+Group030_dirty_data.csv,CORD000390,nearest_warehouse,dirty,Baker's,Bakers,Select minimum Haversine distance to supplied warehouses,"D04: 6,371 km Haversine comparison and canonical warehouse name",high
+Group030_dirty_data.csv,CORD000403,distance_to_nearest_warehouse,dirty,11.0676,8.5676,Recalculate Haversine distance to the nearest warehouse,"D05: 6,371 km radius and four-decimal reconstruction",high
+Group030_dirty_data.csv,CORD000413,nearest_warehouse,dirty,Nickolsen,Nickolson,Select minimum Haversine distance to supplied warehouses,"D04: 6,371 km Haversine comparison and canonical warehouse name",high
+Group030_dirty_data.csv,CORD000414,order_price,dirty,1560.39,1523.14,Recalculate cart total from inferred current unit prices,D06: rank-12 price system with zero held-out cart-equation error,high
+Group030_dirty_data.csv,CORD000424,distance_to_nearest_warehouse,dirty,6.8033,4.3033,Recalculate Haversine distance to the nearest warehouse,"D05: 6,371 km radius and four-decimal reconstruction",high
+Group030_dirty_data.csv,CORD000427,season,dirty,Spring,Autumn,Australian season derived from order-date month,D02: published month-to-season mapping,high
+Group030_dirty_data.csv,CORD000437,season,dirty,Spring,Autumn,Australian season derived from order-date month,D02: published month-to-season mapping,high
+Group030_dirty_data.csv,CORD000438,season,dirty,Winter,Summer,Australian season derived from order-date month,D02: published month-to-season mapping,high
+Group030_dirty_data.csv,CORD000441,is_happy_customer,dirty,False,True,Apply frozen local VADER compound threshold and sentinel rule,D07: verified lexicon; compound >= 0.05,high
+Group030_dirty_data.csv,CORD000460,distance_to_nearest_warehouse,dirty,8.7664,6.2664,Recalculate Haversine distance to the nearest warehouse,"D05: 6,371 km radius and four-decimal reconstruction",high
+Group030_dirty_data.csv,CORD000463,order_price,dirty,4272.1,4188.6,Recalculate cart total from inferred current unit prices,D06: rank-12 price system with zero held-out cart-equation error,high
+Group030_dirty_data.csv,CORD000467,is_happy_customer,dirty,False,True,Apply frozen local VADER compound threshold and sentinel rule,D07: verified lexicon; compound >= 0.05,high
+Group030_dirty_data.csv,CORD000472,customer_lat,dirty,37.873364,-37.873364,Restore Melbourne latitude sign while retaining precision,D03: supplied warehouses and all reliable customers have southern latitude,high
+Group030_dirty_data.csv,CORD000475,season,dirty,Autumn,Spring,Australian season derived from order-date month,D02: published month-to-season mapping,high
+Group030_dirty_data.csv,CORD000478,customer_lat,dirty,37.770081,-37.770081,Restore Melbourne latitude sign while retaining precision,D03: supplied warehouses and all reliable customers have southern latitude,high
+Group030_dirty_data.csv,CORD000482,is_happy_customer,dirty,True,False,Apply frozen local VADER compound threshold and sentinel rule,D07: verified lexicon; compound >= 0.05,high
+Group030_dirty_data.csv,CORD000060,delivery_charges,dirty,24.08,16.83,"Back-calculate charge from validated total, price, and discount",D09: implied-charge model residual=0.0002; observed residual=7.2502,high
+Group030_dirty_data.csv,CORD000100,order_total,dirty,1897.11,1805.61,"Recalculate total from independently validated price, discount, and charge",D08: observed-charge model residual=0.0022; published total formula,high
+Group030_dirty_data.csv,CORD000107,order_total,dirty,1635.71,1498.46,"Recalculate total from independently validated price, discount, and charge",D08: observed-charge model residual=0.0026; published total formula,high
+Group030_dirty_data.csv,CORD000113,order_total,dirty,6141.71,6004.46,"Recalculate total from independently validated price, discount, and charge",D08: observed-charge model residual=0.0028; published total formula,high
+Group030_dirty_data.csv,CORD000115,order_total,dirty,11362.84,11271.34,"Recalculate total from independently validated price, discount, and charge",D08: observed-charge model residual=0.0019; published total formula,high
+Group030_dirty_data.csv,CORD000133,order_total,dirty,4417.98,4326.48,"Recalculate total from independently validated price, discount, and charge",D08: observed-charge model residual=0.0000; published total formula,high
+Group030_dirty_data.csv,CORD000161,delivery_charges,dirty,35.68,11.93,"Back-calculate charge from validated total, price, and discount",D09: implied-charge model residual=0.0043; observed residual=23.7457,high
+Group030_dirty_data.csv,CORD000177,order_total,dirty,4359.34,4316.09,"Recalculate total from independently validated price, discount, and charge",D08: observed-charge model residual=0.0044; published total formula,high
+Group030_dirty_data.csv,CORD000179,delivery_charges,dirty,48.3,24.55,"Back-calculate charge from validated total, price, and discount",D09: implied-charge model residual=0.0009; observed residual=23.7509,high
+Group030_dirty_data.csv,CORD000229,delivery_charges,dirty,34.96,20.46,"Back-calculate charge from validated total, price, and discount",D09: implied-charge model residual=0.0000; observed residual=14.5000,high
+Group030_dirty_data.csv,CORD000240,order_total,dirty,5629.7,5586.45,"Recalculate total from independently validated price, discount, and charge",D08: observed-charge model residual=0.0003; published total formula,high
+Group030_dirty_data.csv,CORD000285,order_total,dirty,1501.67,1458.42,"Recalculate total from independently validated price, discount, and charge",D08: observed-charge model residual=0.0008; published total formula,high
+Group030_dirty_data.csv,CORD000288,delivery_charges,dirty,17.76,10.51,"Back-calculate charge from validated total, price, and discount",D09: implied-charge model residual=0.0016; observed residual=7.2484,high
+Group030_dirty_data.csv,CORD000444,delivery_charges,dirty,20.61,13.36,"Back-calculate charge from validated total, price, and discount",D09: implied-charge model residual=0.0023; observed residual=7.2477,high
+Group030_dirty_data.csv,CORD000454,delivery_charges,dirty,36.69,22.19,"Back-calculate charge from validated total, price, and discount",D09: implied-charge model residual=0.0008; observed residual=14.5008,high
+Group030_dirty_data.csv,CORD000493,delivery_charges,dirty,29.97,15.47,"Back-calculate charge from validated total, price, and discount",D09: implied-charge model residual=0.0053; observed residual=14.4947,high
+Group030_dirty_data.csv,CORD000003,is_expedited_delivery,dirty,False,True,Choose 0/1 state with smaller seasonal-model absolute residual,D10: current residual=9.9992; alternative residual=0.0006,high
+Group030_dirty_data.csv,CORD000055,is_expedited_delivery,dirty,True,False,Choose 0/1 state with smaller seasonal-model absolute residual,D10: current residual=9.9961; alternative residual=0.0037,high
+Group030_dirty_data.csv,CORD000056,is_expedited_delivery,dirty,True,False,Choose 0/1 state with smaller seasonal-model absolute residual,D10: current residual=10.9987; alternative residual=0.0015,high
+Group030_dirty_data.csv,CORD000084,is_expedited_delivery,dirty,False,True,Choose 0/1 state with smaller seasonal-model absolute residual,D10: current residual=10.9986; alternative residual=0.0015,high
+Group030_dirty_data.csv,CORD000137,is_expedited_delivery,dirty,False,True,Choose 0/1 state with smaller seasonal-model absolute residual,D10: current residual=10.9996; alternative residual=0.0006,high
+Group030_dirty_data.csv,CORD000245,is_expedited_delivery,dirty,True,False,Choose 0/1 state with smaller seasonal-model absolute residual,D10: current residual=10.4975; alternative residual=0.0023,high
+Group030_dirty_data.csv,CORD000286,is_expedited_delivery,dirty,True,False,Choose 0/1 state with smaller seasonal-model absolute residual,D10: current residual=10.0050; alternative residual=0.0052,high
+Group030_dirty_data.csv,CORD000458,is_expedited_delivery,dirty,False,True,Choose 0/1 state with smaller seasonal-model absolute residual,D10: current residual=10.0028; alternative residual=0.0030,high

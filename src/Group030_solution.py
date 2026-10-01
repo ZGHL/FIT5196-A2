@@ -6,6 +6,9 @@ added as the cleaning, validation, and customer-profile sections are completed.
 
 from pathlib import Path
 
+import pandas as pd
+
+from src.dirty_cleaning import clean_dirty_batch
 from src.missing_cleaning import clean_missing_batch
 
 
@@ -38,8 +41,26 @@ def main() -> None:
         missing_output=MISSING_OUTPUT,
         audit_output=AUDIT_OUTPUT,
     )
+    missing_reference = pd.read_csv(
+        MISSING_INPUT,
+        dtype={"order_id": "string", "customer_id": "string"},
+    )
+    dirty_result = clean_dirty_batch(
+        dirty_input=DIRTY_INPUT,
+        missing_reference=missing_reference,
+        warehouses_input=WAREHOUSES_INPUT,
+        dirty_output=DIRTY_OUTPUT,
+        audit_output=AUDIT_OUTPUT,
+        prices=missing_result.price_map,
+        models=missing_result.seasonal_models,
+        analyzer=missing_result.vader_analyzer,
+    )
+    print("Missing-data imputation summary")
     print(missing_result.imputation_summary.to_string(index=False))
     print(missing_result.validation[["check", "passed"]].to_string(index=False))
+    print("Dirty-data repair summary")
+    print(dirty_result.repair_summary.to_string(index=False))
+    print(dirty_result.validation[["check", "passed"]].to_string(index=False))
 
 
 if __name__ == "__main__":

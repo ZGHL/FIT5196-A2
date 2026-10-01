@@ -71,6 +71,9 @@ MODEL_FEATURES = [
 class MissingCleaningResult:
     cleaned: pd.DataFrame
     audit: pd.DataFrame
+    price_map: dict[str, float]
+    seasonal_models: dict[str, LinearRegression]
+    vader_analyzer: SentimentIntensityAnalyzer
     product_prices: pd.DataFrame
     price_diagnostics: pd.DataFrame
     model_diagnostics: pd.DataFrame
@@ -664,6 +667,9 @@ def clean_missing_batch(
     return MissingCleaningResult(
         cleaned=cleaned,
         audit=audit_frame,
+        price_map=prices,
+        seasonal_models=models,
+        vader_analyzer=analyzer,
         product_prices=product_prices,
         price_diagnostics=price_diagnostics,
         model_diagnostics=model_diagnostics,
