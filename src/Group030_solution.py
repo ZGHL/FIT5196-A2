@@ -10,6 +10,7 @@ import pandas as pd
 
 from src.dirty_cleaning import clean_dirty_batch
 from src.missing_cleaning import clean_missing_batch
+from src.outlier_cleaning import clean_outlier_batch
 
 
 GROUP_ID = "Group030"
@@ -55,12 +56,25 @@ def main() -> None:
         models=missing_result.seasonal_models,
         analyzer=missing_result.vader_analyzer,
     )
+    outlier_result = clean_outlier_batch(
+        outlier_input=OUTLIER_INPUT,
+        missing_reference=missing_reference,
+        warehouses_input=WAREHOUSES_INPUT,
+        outlier_output=OUTLIER_OUTPUT,
+        audit_output=AUDIT_OUTPUT,
+        prices=missing_result.price_map,
+        models=missing_result.seasonal_models,
+        analyzer=missing_result.vader_analyzer,
+    )
     print("Missing-data imputation summary")
     print(missing_result.imputation_summary.to_string(index=False))
     print(missing_result.validation[["check", "passed"]].to_string(index=False))
     print("Dirty-data repair summary")
     print(dirty_result.repair_summary.to_string(index=False))
     print(dirty_result.validation[["check", "passed"]].to_string(index=False))
+    print("Outlier residual thresholds")
+    print(outlier_result.threshold_diagnostics.to_string(index=False))
+    print(outlier_result.validation[["check", "passed"]].to_string(index=False))
 
 
 if __name__ == "__main__":
