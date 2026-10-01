@@ -1,12 +1,16 @@
-"""FIT5196 A2 Group030 reproducible pipeline source.
+"""FIT5196 A2 Group030 reproducible cleansing and profiling pipeline.
 
-Keep this file aligned with the submitted notebook. Implementation will be
-added as the cleaning, validation, and customer-profile sections are completed.
+This source mirrors the executable workflow in the submitted notebook. It
+recreates the three cleaned order files and audit log, runs the validation
+implemented by each cleaning module, and constructs the Task 3 customer-level
+analysis copy without modifying any submitted cleaned value.
 """
 
 from pathlib import Path
 
+import numpy as np
 import pandas as pd
+from sklearn.preprocessing import MinMaxScaler, StandardScaler
 
 from src.dirty_cleaning import clean_dirty_batch
 from src.missing_cleaning import clean_missing_batch
@@ -30,9 +34,146 @@ MISSING_OUTPUT = OUTPUT_DIR / f"{GROUP_ID}_missing_clean.csv"
 OUTLIER_OUTPUT = OUTPUT_DIR / f"{GROUP_ID}_outlier_clean.csv"
 AUDIT_OUTPUT = OUTPUT_DIR / "audit_log.csv"
 
+PROFILE_ATTRIBUTES = [
+    "order_count",
+    "mean_order_value",
+    "mean_delivery_distance",
+]
+
+
+def build_customer_profile_analysis() -> dict[str, pd.DataFrame]:
+    """Build the in-memory Task 3 analysis from the three cleaned outputs."""
+    cleaned_paths = {
+        "dirty": DIRTY_OUTPUT,
+        "missing": MISSING_OUTPUT,
+        "outlier": OUTLIER_OUTPUT,
+    }
+    cleaned_frames = []
+    for source_batch, path in cleaned_paths.items():
+        frame = pd.read_csv(
+            path,
+            dtype={"order_id": "string", "customer_id": "string"},
+        )
+        frame["source_batch"] = source_batch
+        cleaned_frames.append(frame)
+
+    profile_orders = pd.concat(cleaned_frames, ignore_index=True)
+    input_summary = pd.DataFrame(
+        {
+            "source_batch": list(cleaned_paths),
+            "retained_rows": [len(frame) for frame in cleaned_frames],
+        }
+    )
+    customer_profiles = (
+        profile_orders.groupby("customer_id", as_index=False)
+        .agg(
+            order_count=("order_id", "nunique"),
+            total_paid=("order_total", "sum"),
+            mean_order_value=("order_total", "mean"),
+            mean_delivery_distance=("distance_to_nearest_warehouse", "mean"),
+        )
+    )
+    baseline = customer_profiles[["customer_id", *PROFILE_ATTRIBUTES]].copy()
+
+    z_scaled = pd.DataFrame(
+        StandardScaler().fit_transform(baseline[PROFILE_ATTRIBUTES]),
+        columns=PROFILE_ATTRIBUTES,
+        index=baseline.index,
+    )
+    minmax_scaled = pd.DataFrame(
+        MinMaxScaler().fit_transform(baseline[PROFILE_ATTRIBUTES]),
+        columns=PROFILE_ATTRIBUTES,
+        index=baseline.index,
+    )
+    variance_by_representation = pd.DataFrame(
+        {
+            "original": baseline[PROFILE_ATTRIBUTES].var(ddof=0),
+            "z_score": z_scaled.var(ddof=0),
+            "min_max": minmax_scaled.var(ddof=0),
+        }
+    )
+    distance_contribution = variance_by_representation.div(
+        variance_by_representation.sum(axis=0), axis=1
+    ) * 100
+
+    transformations = {
+        "original": lambda values: values,
+        "square_root": np.sqrt,
+        "log1p": np.log1p,
+    }
+    nonlinear_records = []
+    for attribute in PROFILE_ATTRIBUTES:
+        for method, transform in transformations.items():
+            transformed = transform(baseline[attribute])
+            nonlinear_records.append(
+                {
+                    "attribute": attribute,
+                    "method": method,
+                    "skewness": transformed.skew(),
+                    "minimum": transformed.min(),
+                    "median": transformed.median(),
+                    "maximum": transformed.max(),
+                }
+            )
+    nonlinear_summary = pd.DataFrame(nonlinear_records)
+
+    recommended_base = pd.DataFrame(
+        {
+            "order_count": baseline["order_count"],
+            "mean_order_value": np.sqrt(baseline["mean_order_value"]),
+            "mean_delivery_distance": baseline["mean_delivery_distance"],
+        }
+    )
+    recommended_scaled = pd.DataFrame(
+        StandardScaler().fit_transform(recommended_base),
+        columns=[f"{column}_recommended" for column in PROFILE_ATTRIBUTES],
+        index=baseline.index,
+    )
+    recommended_profiles = pd.concat(
+        [baseline[["customer_id"]], recommended_scaled], axis=1
+    )
+    recommendations = pd.DataFrame(
+        [
+            {
+                "attribute": "order_count",
+                "methods_compared": "original, square root, log1p, z-score, min-max",
+                "observed_effect": "Skew 0.8793; transforms compress the discrete 1-10 count scale",
+                "recommended_treatment": "no nonlinear transformation; z-score standardisation",
+                "justification_or_limitation": "Preserves count interpretation before scaling; retained A2 orders only",
+            },
+            {
+                "attribute": "mean_order_value",
+                "methods_compared": "original, square root, log1p, z-score, min-max",
+                "observed_effect": "Square root reduces skew from 0.9282 to 0.1560",
+                "recommended_treatment": "square root first; then z-score standardisation",
+                "justification_or_limitation": "Moderates extreme monetary influence; transformed units are less direct",
+            },
+            {
+                "attribute": "mean_delivery_distance",
+                "methods_compared": "original, square root, log1p, z-score, min-max",
+                "observed_effect": "Transforms worsen original skew from -0.2357",
+                "recommended_treatment": "no nonlinear transformation; z-score standardisation",
+                "justification_or_limitation": "Retains kilometre ordering; straight-line distance is not travel time",
+            },
+        ]
+    )
+
+    return {
+        "input_summary": input_summary,
+        "profile_orders": profile_orders,
+        "customer_profiles": customer_profiles,
+        "baseline_profiles": baseline,
+        "z_scaled": z_scaled,
+        "minmax_scaled": minmax_scaled,
+        "distance_contribution": distance_contribution,
+        "nonlinear_summary": nonlinear_summary,
+        "recommended_profiles": recommended_profiles,
+        "recommendations": recommendations,
+    }
+
 
 def main() -> None:
-    """Run the currently implemented Group030 workflow."""
+    """Run the complete Group030 cleansing, validation and profiling workflow."""
     OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
     missing_result = clean_missing_batch(
         missing_input=MISSING_INPUT,
@@ -75,6 +216,20 @@ def main() -> None:
     print("Outlier residual thresholds")
     print(outlier_result.threshold_diagnostics.to_string(index=False))
     print(outlier_result.validation[["check", "passed"]].to_string(index=False))
+    profile_analysis = build_customer_profile_analysis()
+    print("Customer-profile input summary")
+    print(profile_analysis["input_summary"].to_string(index=False))
+    print(
+        "Combined orders and customers:",
+        profile_analysis["profile_orders"]["order_id"].nunique(),
+        len(profile_analysis["customer_profiles"]),
+    )
+    print("Potential Euclidean-distance variance contributions (%)")
+    print(profile_analysis["distance_contribution"].round(4).to_string())
+    print("Nonlinear transformation comparison")
+    print(profile_analysis["nonlinear_summary"].round(4).to_string(index=False))
+    print("Recommended analytical treatment")
+    print(profile_analysis["recommendations"].to_string(index=False))
 
 
 if __name__ == "__main__":
