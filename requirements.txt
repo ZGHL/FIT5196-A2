@@ -1,0 +1,10 @@
+# Pin exact versions after the final clean-environment Run All.
+pandas
+numpy
+scikit-learn
+matplotlib
+seaborn
+nltk==3.9.2
+jupyter
+nbconvert
+

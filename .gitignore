@@ -1,0 +1,48 @@
+# Python environments and caches
+.venv/
+venv/
+env/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Editors and operating-system files
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+.~lock.*#
+
+# Raw allocated data and supplied course materials
+Group*_A2.zip
+data/raw/*
+!data/raw/README.md
+FIT5196-*-specification.pdf
+A2_solution_template.ipynb
+A2_AI_use_declaration_template.docx
+assignment-cover-group.doc
+
+# Generated working outputs (reproducible from the notebook)
+outputs/*.csv
+outputs/*.json
+outputs/*.joblib
+outputs/*.pkl
+!outputs/.gitkeep
+
+# Submission artefacts and sensitive AI records are assembled locally
+submission/Group030_A2_submission/*
+!submission/Group030_A2_submission/README.md
+Group030_A2_submission.zip
+**/AI_records/
+**/*AI_declaration.pdf
+**/*AI_index.pdf
+
+# Local planning documents
+Group030_A2_提交文件与分工.docx
+Group030_A2_提交文件与分工.pdf
+
