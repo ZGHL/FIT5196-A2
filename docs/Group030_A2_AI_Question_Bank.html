@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Group030 A2 AI Question Bank</title>
+<style>
+  @page { size: A4; margin: 1.9cm; }
+  body { font-family: "Liberation Sans", Arial, sans-serif; color: #222; font-size: 10.5pt; line-height: 1.45; }
+  h1 { color: #17365d; text-align: center; font-size: 20pt; margin-bottom: 3pt; }
+  .subtitle { text-align: center; color: #666; margin-bottom: 18pt; }
+  h2 { color: #17365d; font-size: 14pt; border-bottom: 1.5pt solid #5b9bd5; padding-bottom: 3pt; margin-top: 18pt; }
+  h3 { color: #2f5597; font-size: 11.5pt; margin-top: 13pt; margin-bottom: 4pt; }
+  p { margin: 5pt 0; }
+  ol { margin-top: 5pt; margin-bottom: 10pt; padding-left: 22pt; }
+  li { margin: 5pt 0; page-break-inside: avoid; }
+  code { font-family: "Liberation Mono", monospace; background: #f2f2f2; padding: 1pt 3pt; }
+  .note { background: #fff2cc; border-left: 4pt solid #d6b656; padding: 8pt 10pt; margin: 10pt 0; }
+  .prompt { background: #f3f6fa; border: 0.7pt solid #b4c6e7; padding: 9pt; margin: 8pt 0; }
+  table { border-collapse: collapse; width: 100%; table-layout: fixed; margin: 8pt 0 12pt; font-size: 9.5pt; }
+  th { background: #d9eaf7; color: #17365d; }
+  th, td { border: 0.7pt solid #8ca6bf; padding: 5pt; vertical-align: top; }
+</style>
+</head>
+<body>
+  <h1>FIT5196 Assessment 2</h1>
+  <div class="subtitle">Group030 AI Question Bank for Data Cleansing, Modelling, Audit and Validation</div>
+
+  <div class="note"><strong>Purpose:</strong> This is a prompt bank, not a fabricated AI conversation or answer record. Ask the questions in genuine AI conversations, independently check important suggestions against the data and executable tests, and retain the complete conversation exports in their original order.</div>
+
+  <h2>How to use this question bank</h2>
+  <p>Work through one section at a time. Ask follow-up questions when an explanation is unclear, and request formulas, small numerical examples, assumptions, limitations and verification steps. Record where useful suggestions were applied in the notebook and how they were independently checked.</p>
+  <div class="prompt"><strong>Optional opening instruction:</strong><br><br>
+  “Act as a data-wrangling tutor. Explain the reasoning rather than only giving code. Use the published FIT5196 A2 rules and the Group030 facts supplied in my question. Identify assumptions and possible failure modes. Do not suggest hard-coded row-specific answers. For every method, explain how I can verify it independently with data or executable tests.”</div>
+
+  <h2>1. Understanding the three supplied batches</h2>
+  <ol>
+    <li>Why are the Group030 dirty, missing and outlier CSV files three separate batches of orders rather than three versions of the same orders? How should this affect cleaning, validation and final output construction?</li>
+    <li>How do the batch guarantees change the reasoning process: at most one intentionally wrong field per dirty row, missing values only in the missing batch, and anomalous delivery charges only in the outlier batch?</li>
+    <li>Why is it dangerous to repair every field that fails a consistency check when one corrupted field can cause several downstream checks to fail?</li>
+    <li>What is a defensible processing order for the three batches, and why can the reliable observed rows in the missing batch be useful for learning product prices and delivery relationships?</li>
+  </ol>
+
+  <h2>2. Inferring current product prices</h2>
+  <ol start="5">
+    <li>How should a JSON shopping cart such as <code>[{"product":"Example","quantity":2}]</code> be parsed and converted into a quantity vector without using <code>eval</code>?</li>
+    <li>How can many shopping-cart equations be written as the matrix equation <code>Qp = y</code>, where <code>Q</code> contains quantities, <code>p</code> contains unknown unit prices and <code>y</code> contains observed order prices?</li>
+    <li>Group030 has 12 products and 490 reliable observed cart/order-price equations. What does matrix rank 12 mean, and why is full column rank important for identifying a unique price vector?</li>
+    <li>Why is <code>numpy.linalg.lstsq</code> appropriate for estimating the price vector? How is this related to linear least squares, and how is it different from a customer prediction model?</li>
+    <li>Why should the equations be divided reproducibly into price-estimation and held-out validation equations? What does a held-out maximum absolute error of AUD 0.00 demonstrate, and what does it not demonstrate?</li>
+    <li>How should the published rounding rule be implemented: round each quantity-times-unit-price item amount to two decimals, sum those amounts, and round the final order price to two decimals?</li>
+    <li>Using these inferred prices, explain how the missing order price for CORD000601 is calculated from Vela Echo 583, Candle Bloom 316, Vela Echo 547 and Vela Pulse 559, and how its observed order total provides an independent arithmetic check.</li>
+  </ol>
+
+  <h2>3. Training the seasonal delivery-charge models</h2>
+  <ol start="12">
+    <li>Explain the multiple linear regression model <code>delivery = beta0 + beta1*distance + beta2*expedited + beta3*happy</code>. What does each coefficient mean in business terms?</li>
+    <li>Why must Summer, Autumn, Winter and Spring be fitted as four separate models instead of fitting one undifferentiated model?</li>
+    <li>Why are missing-batch rows with observed season, delivery charge, distance, expedited status and happiness suitable training observations? Which incomplete rows must be excluded?</li>
+    <li>How should the boolean predictors be encoded consistently as 0 and 1? Why is feature scaling unnecessary for recovering this specified linear business relationship?</li>
+    <li>What is ordinary least squares, and how does scikit-learn’s <code>LinearRegression</code> select the intercept and coefficients?</li>
+    <li>Why should each season use a reproducible train/test split such as 80/20 with <code>random_state=5196</code>? What data leakage problems should be avoided?</li>
+    <li>What is R-squared? Explain its formula and interpretation, including why a value close to 1 means the model explains nearly all variation in held-out delivery charges.</li>
+    <li>What is mean absolute error (MAE)? Why is MAE directly interpretable in Australian dollars, and how should a held-out MAE around AUD 0.002-0.003 be interpreted?</li>
+    <li>Group030’s held-out R-squared values are at least 0.999999 in all seasons. Why is this plausible for synthetic data generated from a known linear relationship, and what checks help show that the result is not merely in-sample overfitting?</li>
+    <li>After evaluating a model on a held-out set, is it acceptable to refit the final production model using all reliable observations from that season? Explain why the held-out metrics must still come from the earlier training-only fit.</li>
+    <li>How should coefficient signs be interpreted when distance and expedited delivery have positive coefficients but customer happiness has a negative coefficient?</li>
+    <li>What residual diagnostics should be shown in addition to R-squared, and why does a strong R-squared alone not prove that all repairs and outlier decisions are correct?</li>
+  </ol>
+
+  <h2>4. Recovering missing values</h2>
+  <ol start="24">
+    <li>Which missing fields can be reconstructed deterministically from published rules, and which fields require seasonal-model evidence? Why is a blanket mean, median or mode inappropriate?</li>
+    <li>How is the Australian season derived from an order date, including December as Summer and the day-first rule for slash-formatted dates?</li>
+    <li>Explain the Haversine formula with an Earth radius of 6,371 km. How are the nearest warehouse and the four-decimal distance reconstructed from customer and warehouse coordinates?</li>
+    <li>How is <code>is_happy_customer</code> reconstructed using the frozen local VADER lexicon, the <code>compound &gt;= 0.05</code> rule and the exact <code>No review submitted</code> sentinel?</li>
+    <li>For CORD000518, explain how the Winter model uses distance 8.0532 km, non-expedited delivery and a happy customer to predict a missing delivery charge of approximately AUD 16.85. How can the observed order total be used as a check?</li>
+    <li>For CORD000578, explain why the missing expedited status can be inferred by predicting the delivery charge twice, once with expedited = 0 and once with expedited = 1, and selecting the state with the smaller absolute residual.</li>
+    <li>Why should an already-valid observed order total be preserved when a model-imputed delivery charge produces only a one-cent recomputation difference?</li>
+    <li>How should confidence be assigned to deterministic versus model-based missing-value replacements, and what evidence should be written into the audit log?</li>
+  </ol>
+
+  <h2>5. Diagnosing and repairing dirty values</h2>
+  <ol start="32">
+    <li>How can the “at most one wrong field per row” guarantee be used to distinguish a root error from dependent check failures without assuming a fixed number of bad rows?</li>
+    <li>Why should a positive Melbourne latitude be diagnosed before recalculating nearest warehouse and distance? How does this avoid incorrectly changing several valid fields?</li>
+    <li>How should non-canonical dates, incorrect seasons and non-standard warehouse names be corrected using independent calendar and Haversine evidence?</li>
+    <li>When the order-total formula fails, how can cart-price evidence and delivery-model residuals distinguish an incorrect order price, incorrect delivery charge and incorrect order total?</li>
+    <li>For CORD000060, show why <code>5940.94 - 5924.11 = 16.83</code> identifies the correct delivery charge, and explain how the seasonal-model residual independently supports this repair.</li>
+    <li>For CORD000100, calculate <code>round(2223.01*(1-0.20)+27.20, 2)</code> and explain why the result identifies <code>order_total</code>, rather than the delivery charge, as the wrong field.</li>
+    <li>For CORD000003, explain why changing expedited from False to True is defensible when the current-state residual is about AUD 9.9992 and the alternative-state residual is about AUD 0.0006.</li>
+    <li>Why is it better to reconstruct a wrong delivery charge algebraically from otherwise validated price, discount and total values than to overwrite it directly with a regression estimate?</li>
+    <li>How can code enforce that no dirty row receives more than one repair and that every actual changed cell has exactly one matching audit record?</li>
+  </ol>
+
+  <h2>6. Detecting and removing delivery-charge outliers</h2>
+  <ol start="41">
+    <li>Why is a large raw delivery charge not necessarily an outlier? Explain why conditional residuals are more appropriate than a simple charge threshold.</li>
+    <li>How should the delivery residual <code>observed charge - predicted charge</code> be calculated using the applicable seasonal model?</li>
+    <li>Explain the Group030 threshold rule: for each season, take the larger of the maximum reproducible held-out absolute residual and the maximum residual across all reliable observations, then add an AUD 0.01 rounding guard.</li>
+    <li>Why is the empirical residual rule different from using the assignment’s numerical comparison tolerances as an outlier threshold?</li>
+    <li>For CORD001017, explain why an observed Spring charge of AUD 23.97, predicted charge of AUD 14.4692, absolute residual of AUD 9.5008 and threshold of approximately AUD 0.0159 justify removing the row.</li>
+    <li>How should the gap between the maximum retained residual (about AUD 0.0081) and minimum removed residual (about AUD 6.2460) be interpreted? What does a separation ratio of about 774 indicate?</li>
+    <li>Why does the specification require an identified outlier row to be removed rather than replacing its charge and keeping it?</li>
+    <li>What plots and numerical summaries best demonstrate that the decision rule retains unusual but valid orders while removing only conditionally anomalous charges?</li>
+  </ol>
+
+  <h2>7. Audit trail, validation and reproducibility</h2>
+  <ol start="49">
+    <li>Why should an audit record be created at the moment a field is changed, followed by a final original-versus-output reconciliation?</li>
+    <li>What should each of the nine required audit columns contain for a dirty repair, missing-value replacement and removed outlier row?</li>
+    <li>How should <code>&lt;MISSING&gt;</code> and <code>ROW_REMOVED</code> be used, and why should unchanged cells and Task 3 analytical transformations not be logged?</li>
+    <li>Define high, medium and low confidence in a way that is consistent across deterministic rules, strongly validated model decisions and unresolved ambiguity.</li>
+    <li>What executable checks are needed for schema, column order, completeness, unique IDs, preserved ID sets, cart structure, product prices, calendar rules, geography, VADER happiness and monetary relationships?</li>
+    <li>How can validation prove that every originally observed value in the missing output remained unchanged, every retained outlier-row value remained unchanged, and every dirty row changed at most one field?</li>
+    <li>How can the differences between original and cleaned files be reconciled one-to-one with the audit log, including checking the corrected values and removed IDs?</li>
+    <li>Why is rerunning the entire workflow and comparing output SHA-256 hashes useful reproducibility evidence? What additional checks are still necessary even when hashes match?</li>
+    <li>How should the notebook explain a failed check or unresolved issue without fabricating a value merely to make validation pass?</li>
+  </ol>
+
+  <h2>Suggested conversation sequence</h2>
+  <ul>
+    <li><strong>AI-01 — Questions 1-11:</strong> Data structure, evidence selection and product-price inference.</li>
+    <li><strong>AI-02 — Questions 12-23:</strong> Seasonal regression, metrics and held-out evaluation.</li>
+    <li><strong>AI-03 — Questions 24-31:</strong> Missing-value methods and examples.</li>
+    <li><strong>AI-04 — Questions 32-40:</strong> Dirty-field diagnosis, dependency reasoning and repairs.</li>
+    <li><strong>AI-05 — Questions 41-48:</strong> Outlier residual rule, plots and row removal.</li>
+    <li><strong>AI-06 — Questions 49-57:</strong> Audit trail, validation and reproducibility.</li>
+  </ul>
+
+  <div class="note"><strong>Recordkeeping reminder:</strong> The final AI index should state the tool and member, complete export filename, purpose, where the output was used, and the independent verification performed. Do not submit only this question bank as if it were a conversation record.</div>
+</body>
+</html>
