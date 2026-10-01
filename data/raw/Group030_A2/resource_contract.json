@@ -1,0 +1,7 @@
+{
+  "compound_threshold": 0.05,
+  "nltk_version": "3.9.2",
+  "schema_version": "1.0",
+  "vader_lexicon_relative_path": "resources/nltk_data/sentiment/vader_lexicon.zip",
+  "vader_lexicon_sha256": "8adba4294eef3964d820bf655e37e61bdc3a341994356af59b74fb3b4a36ce5c"
+}

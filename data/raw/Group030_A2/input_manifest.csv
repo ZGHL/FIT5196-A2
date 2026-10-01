@@ -1,0 +1,4 @@
+file_name,rows,columns,grain
+Group030_dirty_data.csv,500,16,one row per incoming order
+Group030_missing_data.csv,500,16,one row per incoming order
+Group030_outlier_data.csv,500,16,one row per incoming order

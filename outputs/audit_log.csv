@@ -1,0 +1,81 @@
+source_file,record_key,field_name,issue_type,original_value,corrected_value,method,evidence,confidence
+Group030_missing_data.csv,CORD000594,season,missing,<MISSING>,Summer,Australian season derived from order-date month,M01: published month-to-season mapping,high
+Group030_missing_data.csv,CORD000610,season,missing,<MISSING>,Summer,Australian season derived from order-date month,M01: published month-to-season mapping,high
+Group030_missing_data.csv,CORD000652,season,missing,<MISSING>,Autumn,Australian season derived from order-date month,M01: published month-to-season mapping,high
+Group030_missing_data.csv,CORD000657,season,missing,<MISSING>,Autumn,Australian season derived from order-date month,M01: published month-to-season mapping,high
+Group030_missing_data.csv,CORD000676,season,missing,<MISSING>,Summer,Australian season derived from order-date month,M01: published month-to-season mapping,high
+Group030_missing_data.csv,CORD000696,season,missing,<MISSING>,Winter,Australian season derived from order-date month,M01: published month-to-season mapping,high
+Group030_missing_data.csv,CORD000724,season,missing,<MISSING>,Spring,Australian season derived from order-date month,M01: published month-to-season mapping,high
+Group030_missing_data.csv,CORD000770,season,missing,<MISSING>,Spring,Australian season derived from order-date month,M01: published month-to-season mapping,high
+Group030_missing_data.csv,CORD000848,season,missing,<MISSING>,Winter,Australian season derived from order-date month,M01: published month-to-season mapping,high
+Group030_missing_data.csv,CORD000859,season,missing,<MISSING>,Autumn,Australian season derived from order-date month,M01: published month-to-season mapping,high
+Group030_missing_data.csv,CORD000507,nearest_warehouse,missing,<MISSING>,Nickolson,Minimum Haversine distance to supplied warehouses,"M02: 6,371 km Haversine comparison across all three warehouses",high
+Group030_missing_data.csv,CORD000564,nearest_warehouse,missing,<MISSING>,Bakers,Minimum Haversine distance to supplied warehouses,"M02: 6,371 km Haversine comparison across all three warehouses",high
+Group030_missing_data.csv,CORD000725,nearest_warehouse,missing,<MISSING>,Thompson,Minimum Haversine distance to supplied warehouses,"M02: 6,371 km Haversine comparison across all three warehouses",high
+Group030_missing_data.csv,CORD000830,nearest_warehouse,missing,<MISSING>,Bakers,Minimum Haversine distance to supplied warehouses,"M02: 6,371 km Haversine comparison across all three warehouses",high
+Group030_missing_data.csv,CORD000839,nearest_warehouse,missing,<MISSING>,Bakers,Minimum Haversine distance to supplied warehouses,"M02: 6,371 km Haversine comparison across all three warehouses",high
+Group030_missing_data.csv,CORD000863,nearest_warehouse,missing,<MISSING>,Nickolson,Minimum Haversine distance to supplied warehouses,"M02: 6,371 km Haversine comparison across all three warehouses",high
+Group030_missing_data.csv,CORD000891,nearest_warehouse,missing,<MISSING>,Nickolson,Minimum Haversine distance to supplied warehouses,"M02: 6,371 km Haversine comparison across all three warehouses",high
+Group030_missing_data.csv,CORD000896,nearest_warehouse,missing,<MISSING>,Bakers,Minimum Haversine distance to supplied warehouses,"M02: 6,371 km Haversine comparison across all three warehouses",high
+Group030_missing_data.csv,CORD000925,nearest_warehouse,missing,<MISSING>,Thompson,Minimum Haversine distance to supplied warehouses,"M02: 6,371 km Haversine comparison across all three warehouses",high
+Group030_missing_data.csv,CORD000952,nearest_warehouse,missing,<MISSING>,Thompson,Minimum Haversine distance to supplied warehouses,"M02: 6,371 km Haversine comparison across all three warehouses",high
+Group030_missing_data.csv,CORD000530,distance_to_nearest_warehouse,missing,<MISSING>,7.9865,Haversine distance to nearest supplied warehouse,"M03: 6,371 km radius; reconstructed distance rounded to four decimals",high
+Group030_missing_data.csv,CORD000555,distance_to_nearest_warehouse,missing,<MISSING>,2.9896,Haversine distance to nearest supplied warehouse,"M03: 6,371 km radius; reconstructed distance rounded to four decimals",high
+Group030_missing_data.csv,CORD000593,distance_to_nearest_warehouse,missing,<MISSING>,8.6616,Haversine distance to nearest supplied warehouse,"M03: 6,371 km radius; reconstructed distance rounded to four decimals",high
+Group030_missing_data.csv,CORD000617,distance_to_nearest_warehouse,missing,<MISSING>,4.5071,Haversine distance to nearest supplied warehouse,"M03: 6,371 km radius; reconstructed distance rounded to four decimals",high
+Group030_missing_data.csv,CORD000771,distance_to_nearest_warehouse,missing,<MISSING>,1.232,Haversine distance to nearest supplied warehouse,"M03: 6,371 km radius; reconstructed distance rounded to four decimals",high
+Group030_missing_data.csv,CORD000813,distance_to_nearest_warehouse,missing,<MISSING>,3.7868,Haversine distance to nearest supplied warehouse,"M03: 6,371 km radius; reconstructed distance rounded to four decimals",high
+Group030_missing_data.csv,CORD000825,distance_to_nearest_warehouse,missing,<MISSING>,7.5587,Haversine distance to nearest supplied warehouse,"M03: 6,371 km radius; reconstructed distance rounded to four decimals",high
+Group030_missing_data.csv,CORD000941,distance_to_nearest_warehouse,missing,<MISSING>,0.5381,Haversine distance to nearest supplied warehouse,"M03: 6,371 km radius; reconstructed distance rounded to four decimals",high
+Group030_missing_data.csv,CORD000995,distance_to_nearest_warehouse,missing,<MISSING>,2.6353,Haversine distance to nearest supplied warehouse,"M03: 6,371 km radius; reconstructed distance rounded to four decimals",high
+Group030_missing_data.csv,CORD000998,distance_to_nearest_warehouse,missing,<MISSING>,6.0521,Haversine distance to nearest supplied warehouse,"M03: 6,371 km radius; reconstructed distance rounded to four decimals",high
+Group030_missing_data.csv,CORD000601,order_price,missing,<MISSING>,2895.8,Sum of rounded quantity times inferred current unit price,M04: 490 observed equations; rank 12; held-out maximum error AUD 0.00,high
+Group030_missing_data.csv,CORD000606,order_price,missing,<MISSING>,3049.0,Sum of rounded quantity times inferred current unit price,M04: 490 observed equations; rank 12; held-out maximum error AUD 0.00,high
+Group030_missing_data.csv,CORD000611,order_price,missing,<MISSING>,7300.2,Sum of rounded quantity times inferred current unit price,M04: 490 observed equations; rank 12; held-out maximum error AUD 0.00,high
+Group030_missing_data.csv,CORD000651,order_price,missing,<MISSING>,1771.2,Sum of rounded quantity times inferred current unit price,M04: 490 observed equations; rank 12; held-out maximum error AUD 0.00,high
+Group030_missing_data.csv,CORD000654,order_price,missing,<MISSING>,2053.5,Sum of rounded quantity times inferred current unit price,M04: 490 observed equations; rank 12; held-out maximum error AUD 0.00,high
+Group030_missing_data.csv,CORD000686,order_price,missing,<MISSING>,8395.88,Sum of rounded quantity times inferred current unit price,M04: 490 observed equations; rank 12; held-out maximum error AUD 0.00,high
+Group030_missing_data.csv,CORD000710,order_price,missing,<MISSING>,7177.59,Sum of rounded quantity times inferred current unit price,M04: 490 observed equations; rank 12; held-out maximum error AUD 0.00,high
+Group030_missing_data.csv,CORD000744,order_price,missing,<MISSING>,3298.75,Sum of rounded quantity times inferred current unit price,M04: 490 observed equations; rank 12; held-out maximum error AUD 0.00,high
+Group030_missing_data.csv,CORD000799,order_price,missing,<MISSING>,1926.09,Sum of rounded quantity times inferred current unit price,M04: 490 observed equations; rank 12; held-out maximum error AUD 0.00,high
+Group030_missing_data.csv,CORD000886,order_price,missing,<MISSING>,6184.4,Sum of rounded quantity times inferred current unit price,M04: 490 observed equations; rank 12; held-out maximum error AUD 0.00,high
+Group030_missing_data.csv,CORD000538,order_total,missing,<MISSING>,6747.89,Published discounted-item-price plus delivery formula,M05: order_total arithmetic relationship,high
+Group030_missing_data.csv,CORD000542,order_total,missing,<MISSING>,4152.92,Published discounted-item-price plus delivery formula,M05: order_total arithmetic relationship,high
+Group030_missing_data.csv,CORD000600,order_total,missing,<MISSING>,7580.37,Published discounted-item-price plus delivery formula,M05: order_total arithmetic relationship,high
+Group030_missing_data.csv,CORD000648,order_total,missing,<MISSING>,3018.66,Published discounted-item-price plus delivery formula,M05: order_total arithmetic relationship,high
+Group030_missing_data.csv,CORD000675,order_total,missing,<MISSING>,7163.26,Published discounted-item-price plus delivery formula,M05: order_total arithmetic relationship,high
+Group030_missing_data.csv,CORD000791,order_total,missing,<MISSING>,2668.53,Published discounted-item-price plus delivery formula,M05: order_total arithmetic relationship,high
+Group030_missing_data.csv,CORD000797,order_total,missing,<MISSING>,8187.72,Published discounted-item-price plus delivery formula,M05: order_total arithmetic relationship,high
+Group030_missing_data.csv,CORD000842,order_total,missing,<MISSING>,1039.47,Published discounted-item-price plus delivery formula,M05: order_total arithmetic relationship,high
+Group030_missing_data.csv,CORD000897,order_total,missing,<MISSING>,4783.04,Published discounted-item-price plus delivery formula,M05: order_total arithmetic relationship,high
+Group030_missing_data.csv,CORD000932,order_total,missing,<MISSING>,4260.35,Published discounted-item-price plus delivery formula,M05: order_total arithmetic relationship,high
+Group030_missing_data.csv,CORD000502,is_happy_customer,missing,<MISSING>,True,Frozen local VADER compound score and published sentinel rule,M06: verified lexicon checksum; compound >= 0.05,high
+Group030_missing_data.csv,CORD000504,is_happy_customer,missing,<MISSING>,False,Frozen local VADER compound score and published sentinel rule,M06: verified lexicon checksum; compound >= 0.05,high
+Group030_missing_data.csv,CORD000570,is_happy_customer,missing,<MISSING>,False,Frozen local VADER compound score and published sentinel rule,M06: verified lexicon checksum; compound >= 0.05,high
+Group030_missing_data.csv,CORD000669,is_happy_customer,missing,<MISSING>,False,Frozen local VADER compound score and published sentinel rule,M06: verified lexicon checksum; compound >= 0.05,high
+Group030_missing_data.csv,CORD000731,is_happy_customer,missing,<MISSING>,True,Frozen local VADER compound score and published sentinel rule,M06: verified lexicon checksum; compound >= 0.05,high
+Group030_missing_data.csv,CORD000766,is_happy_customer,missing,<MISSING>,True,Frozen local VADER compound score and published sentinel rule,M06: verified lexicon checksum; compound >= 0.05,high
+Group030_missing_data.csv,CORD000769,is_happy_customer,missing,<MISSING>,False,Frozen local VADER compound score and published sentinel rule,M06: verified lexicon checksum; compound >= 0.05,high
+Group030_missing_data.csv,CORD000794,is_happy_customer,missing,<MISSING>,False,Frozen local VADER compound score and published sentinel rule,M06: verified lexicon checksum; compound >= 0.05,high
+Group030_missing_data.csv,CORD000854,is_happy_customer,missing,<MISSING>,True,Frozen local VADER compound score and published sentinel rule,M06: verified lexicon checksum; compound >= 0.05,high
+Group030_missing_data.csv,CORD000993,is_happy_customer,missing,<MISSING>,True,Frozen local VADER compound score and published sentinel rule,M06: verified lexicon checksum; compound >= 0.05,high
+Group030_missing_data.csv,CORD000518,delivery_charges,missing,<MISSING>,16.85,"Season-specific linear model using distance, expedited, and happiness","M07: Winter held-out R2=1.000000, MAE=0.0028",high
+Group030_missing_data.csv,CORD000534,delivery_charges,missing,<MISSING>,13.57,"Season-specific linear model using distance, expedited, and happiness","M07: Summer held-out R2=1.000000, MAE=0.0024",high
+Group030_missing_data.csv,CORD000663,delivery_charges,missing,<MISSING>,18.03,"Season-specific linear model using distance, expedited, and happiness","M07: Winter held-out R2=1.000000, MAE=0.0028",high
+Group030_missing_data.csv,CORD000736,delivery_charges,missing,<MISSING>,12.84,"Season-specific linear model using distance, expedited, and happiness","M07: Spring held-out R2=0.999999, MAE=0.0022",high
+Group030_missing_data.csv,CORD000812,delivery_charges,missing,<MISSING>,12.27,"Season-specific linear model using distance, expedited, and happiness","M07: Autumn held-out R2=1.000000, MAE=0.0022",high
+Group030_missing_data.csv,CORD000846,delivery_charges,missing,<MISSING>,11.1,"Season-specific linear model using distance, expedited, and happiness","M07: Spring held-out R2=0.999999, MAE=0.0022",high
+Group030_missing_data.csv,CORD000923,delivery_charges,missing,<MISSING>,11.95,"Season-specific linear model using distance, expedited, and happiness","M07: Summer held-out R2=1.000000, MAE=0.0024",high
+Group030_missing_data.csv,CORD000936,delivery_charges,missing,<MISSING>,23.06,"Season-specific linear model using distance, expedited, and happiness","M07: Spring held-out R2=0.999999, MAE=0.0022",high
+Group030_missing_data.csv,CORD000955,delivery_charges,missing,<MISSING>,12.07,"Season-specific linear model using distance, expedited, and happiness","M07: Spring held-out R2=0.999999, MAE=0.0022",high
+Group030_missing_data.csv,CORD000990,delivery_charges,missing,<MISSING>,10.81,"Season-specific linear model using distance, expedited, and happiness","M07: Spring held-out R2=0.999999, MAE=0.0022",high
+Group030_missing_data.csv,CORD000578,is_expedited_delivery,missing,<MISSING>,False,Choose 0/1 state with smaller seasonal-model absolute residual,M08: regular residual=0.0031; expedited residual=10.5029,high
+Group030_missing_data.csv,CORD000595,is_expedited_delivery,missing,<MISSING>,True,Choose 0/1 state with smaller seasonal-model absolute residual,M08: regular residual=10.5035; expedited residual=0.0037,high
+Group030_missing_data.csv,CORD000619,is_expedited_delivery,missing,<MISSING>,False,Choose 0/1 state with smaller seasonal-model absolute residual,M08: regular residual=0.0013; expedited residual=10.0011,high
+Group030_missing_data.csv,CORD000723,is_expedited_delivery,missing,<MISSING>,True,Choose 0/1 state with smaller seasonal-model absolute residual,M08: regular residual=10.5006; expedited residual=0.0008,high
+Group030_missing_data.csv,CORD000737,is_expedited_delivery,missing,<MISSING>,False,Choose 0/1 state with smaller seasonal-model absolute residual,M08: regular residual=0.0001; expedited residual=11.0000,high
+Group030_missing_data.csv,CORD000789,is_expedited_delivery,missing,<MISSING>,True,Choose 0/1 state with smaller seasonal-model absolute residual,M08: regular residual=10.5030; expedited residual=0.0032,high
+Group030_missing_data.csv,CORD000871,is_expedited_delivery,missing,<MISSING>,False,Choose 0/1 state with smaller seasonal-model absolute residual,M08: regular residual=0.0037; expedited residual=12.9966,high
+Group030_missing_data.csv,CORD000878,is_expedited_delivery,missing,<MISSING>,True,Choose 0/1 state with smaller seasonal-model absolute residual,M08: regular residual=10.0002; expedited residual=0.0003,high
+Group030_missing_data.csv,CORD000964,is_expedited_delivery,missing,<MISSING>,False,Choose 0/1 state with smaller seasonal-model absolute residual,M08: regular residual=0.0019; expedited residual=9.9979,high
+Group030_missing_data.csv,CORD000991,is_expedited_delivery,missing,<MISSING>,True,Choose 0/1 state with smaller seasonal-model absolute residual,M08: regular residual=10.5022; expedited residual=0.0024,high

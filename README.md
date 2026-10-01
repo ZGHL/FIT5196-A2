@@ -10,7 +10,7 @@ compares transformations for customer profiling.
 ```text
 FIT5196-A2/
 ├── data/
-│   └── raw/                         # local allocated package; not committed
+│   └── raw/                         # extracted allocated package
 │       └── Group030_A2/
 ├── notebooks/
 │   └── Group030_solution.ipynb     # main technical report
@@ -25,8 +25,9 @@ FIT5196-A2/
 
 ## Local data setup
 
-The allocated raw package and supplied course files are intentionally excluded
-from Git. Extract `Group030_A2.zip` so that the local layout is:
+The extracted Group030 inputs are tracked in this private repository so all
+group members use the same immutable source files. The duplicate source ZIP and
+supplied course documents remain excluded from Git. The layout is:
 
 ```text
 data/raw/Group030_A2/
@@ -68,8 +69,7 @@ The local `submission/Group030_A2_submission/` folder must eventually contain:
 - `Group030_AI_declaration.pdf`
 - `AI_records/` when applicable
 
-Generated data and AI records are ignored by default to avoid accidentally
-publishing allocated data, assessment answers, signatures, or conversation
-records. Review repository visibility and academic-integrity requirements before
-changing these ignore rules.
-
+Cleaned CSVs and the audit log are tracked under `outputs/` for private-team
+review. The final Moodle submission must still exclude all raw inputs and the
+frozen lexicon. Signed declarations and AI conversation records remain ignored
+to avoid committing signatures or personal records.

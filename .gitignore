@@ -18,21 +18,18 @@ Thumbs.db
 .idea/
 .~lock.*#
 
-# Raw allocated data and supplied course materials
+# Supplied archive and course materials (the extracted Group030 inputs are
+# tracked under data/raw/ for private-team collaboration)
 Group*_A2.zip
-data/raw/*
-!data/raw/README.md
 FIT5196-*-specification.pdf
 A2_solution_template.ipynb
 A2_AI_use_declaration_template.docx
 assignment-cover-group.doc
 
-# Generated working outputs (reproducible from the notebook)
-outputs/*.csv
+# Non-CSV generated working artefacts
 outputs/*.json
 outputs/*.joblib
 outputs/*.pkl
-!outputs/.gitkeep
 
 # Submission artefacts and sensitive AI records are assembled locally
 submission/Group030_A2_submission/*
@@ -45,4 +42,3 @@ Group030_A2_submission.zip
 # Local planning documents
 Group030_A2_提交文件与分工.docx
 Group030_A2_提交文件与分工.pdf
-
