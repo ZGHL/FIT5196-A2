@@ -6,6 +6,8 @@ added as the cleaning, validation, and customer-profile sections are completed.
 
 from pathlib import Path
 
+from src.missing_cleaning import clean_missing_batch
+
 
 GROUP_ID = "Group030"
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
@@ -26,13 +28,19 @@ AUDIT_OUTPUT = OUTPUT_DIR / "audit_log.csv"
 
 
 def main() -> None:
-    """Run the completed Group030 pipeline after implementation."""
+    """Run the currently implemented Group030 workflow."""
     OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
-    raise NotImplementedError(
-        "Complete the pipeline in the notebook and keep this source in sync."
+    missing_result = clean_missing_batch(
+        missing_input=MISSING_INPUT,
+        warehouses_input=WAREHOUSES_INPUT,
+        resource_contract=RESOURCE_CONTRACT,
+        nltk_data_dir=NLTK_DATA_DIR,
+        missing_output=MISSING_OUTPUT,
+        audit_output=AUDIT_OUTPUT,
     )
+    print(missing_result.imputation_summary.to_string(index=False))
+    print(missing_result.validation[["check", "passed"]].to_string(index=False))
 
 
 if __name__ == "__main__":
     main()
-
