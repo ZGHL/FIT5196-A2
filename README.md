@@ -14,6 +14,8 @@ FIT5196-A2/
 │       └── Group030_A2/
 ├── notebooks/
 │   └── Group030_solution.ipynb     # main technical report
+├── docs/
+│   └── Group030_A2_Presentation_Code_Guide.md  # oral defence notes
 ├── src/
 │   └── Group030_solution.py       # matching Python source
 ├── outputs/                            # reproducible working CSV outputs
