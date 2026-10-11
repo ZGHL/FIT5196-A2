@@ -57,6 +57,39 @@ cell. Run the notebook from the repository root unless those paths are changed.
 9. Build customer profiles from the final cleaned outputs and compare transformations.
 10. Restart the kernel, Run All, and assemble the required submission folder locally.
 
+## Suggested five-person work allocation
+
+The notebook sections from 0 to 7 are divided into five sequential work
+packages. Each package has one owner; names can be assigned later. Section 8 is
+the shared final checklist and is therefore not treated as a separate person's
+analytical task.
+
+| Work package | Notebook sections | Main responsibility | Required handoff |
+|---|---|---|---|
+| 1. Reproducibility and diagnosis | **Sections 0–1** | Maintain paths, dependencies and file-integrity checks; verify schema, keys, missingness, categories, numeric distributions and location evidence. | A confirmed input contract and a short list of reliable/unreliable evidence for Package 2. |
+| 2. Shared rules and models | **Section 2** | Explain and verify cart parsing, product-price inference, date/season rules, geography, VADER sentiment and seasonal delivery models, including held-out evaluation. | The validated price map, rule definitions, VADER analyser, seasonal models and diagnostics for Package 3. |
+| 3. Missing and dirty cleaning | **Sections 3–4** | Recover the 80 missing values, repair the 80 dirty fields, retain worked examples and run the batch-specific validation checks. | `Group030_missing_clean.csv`, `Group030_dirty_clean.csv`, their audit records and passing validation evidence for Package 4. |
+| 4. Outliers, audit and validation | **Sections 5–6** | Apply the seasonal residual rule, remove only defensible outlier orders, consolidate `audit_log.csv`, reconcile actual changes and present the final cross-batch validation summary. | `Group030_outlier_clean.csv`, the complete 184-row audit log and the final validated outputs for Package 5. |
+| 5. Customer profiling and transformation | **Section 7** | Build the customer-level analysis copy from the three final cleaned CSVs; compare original values, z-score, min-max, square-root and `log1p`; finalise the recommendation table and limitations. | Final Task 3 narrative, figures and recommendations for the group presentation. |
+
+### Handoff order
+
+```text
+Package 1 → Package 2 → Package 3 → Package 4 → Package 5
+```
+
+This order follows the notebook's actual dependencies. Package 2 should not
+change input assumptions without notifying Package 1. Package 3 must use the
+validated rules and models from Package 2. Package 4 validates the exact files
+produced by Package 3, and Package 5 must read the final cleaned outputs rather
+than recreate or manually alter them.
+
+To minimise merge conflicts, each owner should edit only their assigned notebook
+sections and corresponding `src/` functions. Before handing work forward, the
+owner should pull the latest `main`, restart the kernel, run their section and
+record any changed output assumptions. After all five handoffs, the group should
+perform one complete Run All and review Section 8 together.
+
 ## Required final submission files
 
 The local `submission/Group030_A2_submission/` folder must eventually contain:
