@@ -70,7 +70,7 @@ analytical task.
 | 2. Shared rules and models | **Section 2** | Explain and verify cart parsing, product-price inference, date/season rules, geography, VADER sentiment and seasonal delivery models, including held-out evaluation. | The validated price map, rule definitions, VADER analyser, seasonal models and diagnostics for Package 3. | _Unassigned_ |
 | 3. Missing and dirty cleaning | **Sections 3–4** | Recover the 80 missing values, repair the 80 dirty fields, retain worked examples and run the batch-specific validation checks. | `Group030_missing_clean.csv`, `Group030_dirty_clean.csv`, their audit records and passing validation evidence for Package 4. | _Unassigned_ |
 | 4. Outliers, audit and validation | **Sections 5–6** | Apply the seasonal residual rule, remove only defensible outlier orders, consolidate `audit_log.csv`, reconcile actual changes and present the final cross-batch validation summary. | `Group030_outlier_clean.csv`, the complete 184-row audit log and the final validated outputs for Package 5. | _Unassigned_ |
-| 5. Customer profiling and transformation | **Section 7** | Build the customer-level analysis copy from the three final cleaned CSVs; compare original values, z-score, min-max, square-root and `log1p`; finalise the recommendation table and limitations. | Final Task 3 narrative, figures and recommendations for the group presentation. | _Unassigned_ |
+| 5. Customer profiling and transformation | **Section 7** | Build the customer-level analysis copy from the three final cleaned CSVs; compare original values, z-score, min-max, square-root and `log1p`; finalise the recommendation table and limitations. | Final Task 3 narrative, figures and recommendations for the group presentation. | _Yinglin Fang_ |
 
 ### Handoff order
 
