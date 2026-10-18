@@ -57,6 +57,23 @@ cell. Run the notebook from the repository root unless those paths are changed.
 9. Build customer profiles from the final cleaned outputs and compare transformations.
 10. Restart the kernel, Run All, and assemble the required submission folder locally.
 
+## Reproducing the analysis
+
+Install the pinned dependencies and run either the notebook or the matching
+Python entry point from the repository root. Both source commands below are
+supported and recreate the three cleaned CSVs, the audit log and the Task 3
+customer-profile summaries without modifying the raw inputs.
+
+```bash
+python -m src.Group030_solution
+# or
+python src/Group030_solution.py
+```
+
+For the assessment-facing report, open `notebooks/Group030_solution.ipynb`,
+restart the kernel and run all cells. The notebook resolves the repository root
+when launched from either the root directory or `notebooks/`.
+
 ## Suggested five-person work allocation
 
 The notebook sections from 0 to 7 are divided into five sequential work

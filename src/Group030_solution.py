@@ -7,6 +7,15 @@ analysis copy without modifying any submitted cleaned value.
 """
 
 from pathlib import Path
+import sys
+
+# Support both documented entry points:
+#   python -m src.Group030_solution
+#   python src/Group030_solution.py
+# When Python executes this file directly, it otherwise places ``src/`` rather
+# than the repository root on ``sys.path``, so absolute ``src.*`` imports fail.
+if __package__ in {None, ""}:
+    sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 
 import numpy as np
 import pandas as pd
@@ -139,21 +148,21 @@ def build_customer_profile_analysis() -> dict[str, pd.DataFrame]:
                 "methods_compared": "original, square root, log1p, z-score, min-max",
                 "observed_effect": "Skew 0.8793; transforms compress the discrete 1-10 count scale",
                 "recommended_treatment": "no nonlinear transformation; z-score standardisation",
-                "justification_or_limitation": "Preserves count interpretation before scaling; retained A2 orders only",
+                "justification_or_limitation": "Preserves count interpretation before scaling; z-score equal weighting is sample-specific",
             },
             {
                 "attribute": "mean_order_value",
                 "methods_compared": "original, square root, log1p, z-score, min-max",
                 "observed_effect": "Square root reduces skew from 0.9282 to 0.1560",
                 "recommended_treatment": "square root first; then z-score standardisation",
-                "justification_or_limitation": "Moderates extreme monetary influence; transformed units are less direct",
+                "justification_or_limitation": "Moderates monetary influence; transformed units are less direct and z-scores do not cap extremes",
             },
             {
                 "attribute": "mean_delivery_distance",
                 "methods_compared": "original, square root, log1p, z-score, min-max",
                 "observed_effect": "Transforms worsen original skew from -0.2357",
                 "recommended_treatment": "no nonlinear transformation; z-score standardisation",
-                "justification_or_limitation": "Retains kilometre ordering; straight-line distance is not travel time",
+                "justification_or_limitation": "Retains kilometre ordering; straight-line distance is not travel time and equal weight is a choice",
             },
         ]
     )

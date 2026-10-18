@@ -36,9 +36,9 @@ the two or three code lines that implement the main idea.
 | Stop | What to show | Main message |
 |---|---|---|
 | Executive summary | Four result cards | 1,476 retained orders, 471 profiles, 184 audited actions, 50/50 checks |
-| Section 1.2 | Missingness table and heat map | Missingness is structured and limited to the missing batch |
+| Section 1.2 | Field counts and row-level missingness | Missingness is structured, limited to the missing batch, and never exceeds one omission per affected row |
 | Section 2.2 | Product-price diagnostics | Current prices are inferred from full-rank cart equations and checked on held-out equations |
-| Section 2.4 | Held-out metrics and prediction plots | Seasonal delivery models generalise to unseen reliable rows |
+| Section 2.4 | Held-out metrics and residual plots | Seasonal delivery models generalise to unseen reliable rows without visible scale-dependent error |
 | Sections 3–5 | One worked example from each batch | Each action follows an independently testable relationship |
 | Section 6 | Audit and consolidated validation | Logged actions equal actual source/output differences |
 | Section 7.2 | Profile distributions and pairwise plots | The selected features differ greatly in units but are not redundant |
