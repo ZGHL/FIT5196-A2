@@ -9,13 +9,17 @@ analysis copy without modifying any submitted cleaned value.
 from pathlib import Path
 import sys
 
-# Support both documented entry points:
+# Support all documented layouts:
 #   python -m src.Group030_solution
 #   python src/Group030_solution.py
-# When Python executes this file directly, it otherwise places ``src/`` rather
-# than the repository root on ``sys.path``, so absolute ``src.*`` imports fail.
-if __package__ in {None, ""}:
-    sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
+#   python Group030_solution.py        (from the final submission directory)
+# The final layout places this entry point beside ``src/``. The development
+# layout keeps it inside ``src/``. Resolve the root from those structural facts
+# rather than assuming one fixed parent depth.
+SCRIPT_DIR = Path(__file__).resolve().parent
+PROJECT_ROOT = SCRIPT_DIR if (SCRIPT_DIR / "src").is_dir() else SCRIPT_DIR.parent
+if __package__ in {None, ""} and str(PROJECT_ROOT) not in sys.path:
+    sys.path.insert(0, str(PROJECT_ROOT))
 
 import numpy as np
 import pandas as pd
@@ -27,7 +31,6 @@ from src.outlier_cleaning import clean_outlier_batch
 
 
 GROUP_ID = "Group030"
-PROJECT_ROOT = Path(__file__).resolve().parents[1]
 DATA_DIR = PROJECT_ROOT / "data" / "raw" / f"{GROUP_ID}_A2"
 OUTPUT_DIR = PROJECT_ROOT / "outputs"
 

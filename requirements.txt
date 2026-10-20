@@ -1,4 +1,4 @@
-# Reproduced from a clean Python 3.12.3 environment on 11 October 2026.
+# Reproduced from a clean Python 3.13.12 environment on 20 October 2026.
 pandas==3.0.5
 numpy==2.5.1
 scikit-learn==1.9.0

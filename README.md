@@ -64,6 +64,12 @@ Python entry point from the repository root. Both source commands below are
 supported and recreate the three cleaned CSVs, the audit log and the Task 3
 customer-profile summaries without modifying the raw inputs.
 
+The final submission-readiness run was completed on 20 October 2026 with
+Python 3.13.12 and the exact versions in `requirements.txt`. The command-line
+pipeline and all 70 notebook code cells completed without errors in a fresh
+test directory. The regenerated CSV contents matched the reviewed outputs
+cell-for-cell.
+
 ```bash
 python -m src.Group030_solution
 # or
@@ -125,3 +131,8 @@ Cleaned CSVs and the audit log are tracked under `outputs/` for private-team
 review. The final Moodle submission must still exclude all raw inputs and the
 frozen lexicon. Signed declarations and AI conversation records remain ignored
 to avoid committing signatures or personal records.
+
+See `docs/Group030_A2_Submission_Validation.md` for the final independent
+reproducibility and packaging checks. The declaration included in the local
+submission package is deliberately unsigned: every member must add their own
+original or approved electronic signature before the Moodle upload.
