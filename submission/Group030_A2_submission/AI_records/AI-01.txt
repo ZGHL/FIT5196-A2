@@ -1,0 +1,139 @@
+FIT5196 Assignment 2 | Group030 
+Task 1 (dirty values, missing values, and delivery outliers)
+Tool: ChatGPT
+
+======================================================================
+
+Student (Zhang Guohou):
+Hey, can you help me make sense of FIT5196 A2 Task 1? I'm reading the brief and there are three datasets again. Do we just clean them using the same process, or are they meant to be handled differently?
+
+ChatGPT:
+They need different treatment. The dirty-data file can contain incorrect fields, and each row has at most one intentionally incorrect field. The missing-data file has missing values, but its observed values are correct. The outlier file has delivery-charge outliers only; the appropriate action there is to remove unjustified outlier rows, not rewrite their charges. Keep the three datasets separate for their cleaned outputs. Start with evidence-based EDA for each, then apply rules appropriate to that batch, preserving the information that the specification guarantees is correct.
+
+---------------------------------------------------------------------
+Student (Zhang Guohou):
+That makes sense. But I'm not sure where to begin with EDA. I can do describe() and isna(), but that feels a bit too basic. What else would actually help me find the wrong fields?
+
+ChatGPT:
+Start with schema, column types, row counts, missingness, duplicate order IDs, ranges, and categorical values, then focus on relationships. For example, compare date with season, customer coordinates with warehouse and distance, shopping_cart with order_price, order_price/coupon/delivery with order_total, and prior reviews with is_happy_customer. For delivery, inspect charge against model predictors by season rather than only looking at a histogram. The goal is not to make lots of plots; it's to identify specific checks that tell you which values are inconsistent and what evidence supports a correction.
+
+---------------------------------------------------------------------
+Student (Zhang Guohou):
+I noticed something in the instructions: a dirty row has at most one bad field. If the order price, total, and delivery charge don't match, how do I know which one is wrong? Can I just recalculate all three?
+
+ChatGPT:
+No. If you recalculate every field, you could overwrite values that were correct. Use independent evidence to isolate the likely corrupted field. For example, the shopping cart and inferred current unit prices can help check order_price; the published total equation connects order_price, coupon_discount, delivery_charges, and order_total; a season-specific model provides separate evidence about the delivery charge. Combine those checks with the one-incorrect-field guarantee. If the evidence is not strong enough, explain the uncertainty instead of making several speculative changes.
+
+---------------------------------------------------------------------
+Student (Zhang Guohou):
+The shopping_cart column looks really messy when I open the CSV in a text editor. I see double quotation marks everywhere. Should I split the string manually or use eval to read it?
+
+ChatGPT:
+Use `json.loads` after reading the CSV normally with pandas. The doubled quotes you see in the raw CSV are usually standard CSV escaping. Do not use `eval`. A simple example is:
+
+    import json
+    cart = json.loads(df.loc[0, "shopping_cart"])
+    print(cart)
+
+You should validate that the result is a list of objects, each with a product key and positive integer quantity. The `df` variable above is only a placeholder: adjust it to your actual notebook. Keep original shopping_cart information unchanged, because the assignment states that field is complete and error-free in your input batches.
+
+---------------------------------------------------------------------
+Student (Zhang Guohou):
+Now the product price part is confusing me. We don't have the prices listed, right? Are we supposed to guess the prices from whatever orders look correct?
+
+ChatGPT:
+You should infer current unit prices from enough reliable shopping-cart and order_price equations across your own A2 batches. For each suitable order, the quantity of each product multiplied by its unknown unit price adds up to the order_price, using the assignment's item-level rounding rules. You can form a linear system and solve or estimate it with NumPy if the reliable equations identify the product prices. Exclude orders with missing or unreliable order_price as training evidence. Check rank/identifiability and validate the inferred prices on suitable unused reliable orders. Don't copy A1 catalogue prices, use another group's prices, or invent a price list.
+
+---------------------------------------------------------------------
+Student (Zhang Guohou):
+Could I use numpy.linalg.lstsq for that? I remember using it before, but I'm not sure if it's okay when there are more orders than products.
+
+ChatGPT:
+Yes, least squares is a reasonable computational tool when you have more reliable equations than unknown product prices. Build a quantity matrix with one column per product and one row per reliable cart, and align it with the trustworthy order_price vector. Check that the matrix has sufficient rank. After fitting, inspect the residuals and test the prices on held-out reliable carts. Use the required cents precision and the specified item-rounding logic when checking final order prices. If you find inconsistencies, reconsider which source orders are reliable rather than forcing the model to fit everything.
+
+---------------------------------------------------------------------
+Student (Zhang Guohou):
+Quick question: for the total price, do I round the discount first, or just round once at the end? I keep getting tiny differences and I'm not sure whether it's a bug.
+
+ChatGPT:
+The specification says to compute the order_price by rounding each item amount to two decimals, summing, and rounding that sum to two decimals. Then apply the coupon percentage to order_price, add the delivery charge, and round the final order_total to two decimals. Do not separately round the discounted subtotal before adding delivery. The rule is:
+
+    order_total = round(
+        order_price * (1 - coupon_discount / 100) + delivery_charges,
+        2
+    )
+
+Investigate small differences carefully. Python floating-point behavior and the input's declared precision can matter; do not silently rewrite otherwise valid values to make every row fit a crude rounded calculation.
+
+---------------------------------------------------------------------
+Student (Zhang Guohou):
+I'm seeing dates written with slashes and dates with dashes. Is there a simple way to make them all consistent? And how do I check the seasons without messing up Australian months?
+
+ChatGPT:
+Use the parsing rules in the brief: slash-style day/month/year dates are day-first, while year-first dates keep their year-first meaning. Convert valid dates to YYYY-MM-DD. For the Australian seasonal mapping, December–February is Summer, March–May Autumn, June–August Winter, and September–November Spring. Compare the standardized date's month with the season field; because the dirty batch allows at most one wrong field per row, do not assume a mismatch always means the season is wrong. Consider independent checks and what the date format actually supports.
+
+---------------------------------------------------------------------
+Student (Zhang Guohou):
+What about nearest_warehouse and the distance? I was thinking of using a route calculator online, but the output might not match the data.
+
+ChatGPT:
+Don't use driving distance. The task specifies great-circle Haversine distance from each customer to the three warehouses in warehouses.csv, using Earth radius 6,371 km. Compute all three distances, choose the nearest warehouse, and round reconstructed distance values to four decimals. First inspect whether customer coordinates make sense for Melbourne. Keep the full coordinate precision when calculating and avoid modifying guaranteed-correct customer_long values. Route planners would produce a different concept of distance and are not needed.
+
+---------------------------------------------------------------------
+Student (Zhang Guohou):
+I also see is_happy_customer in the data. Can I just use a normal sentiment package with a default model? It would be easier than setting up those local files.
+
+ChatGPT:
+Not for this assignment. You must apply NLTK VADER using the package-local frozen lexicon and the NLTK version stated in resource_contract.json. Verify the resource checksum and configure NLTK to load that resource. Score the supplied latest_customer_review text exactly as provided, without translating or changing punctuation. A compound score >= 0.05 means True; otherwise False. The exact sentinel `No review submitted` maps to True as a documented special case. The default downloaded lexicon might produce different scores and would not meet the specified contract.
+
+---------------------------------------------------------------------
+Student (Zhang Guohou):
+For missing values, would it be okay to use the median for all numeric columns? It would be much faster, and I can explain why I chose the median.
+
+ChatGPT:
+That would not meet the intent of Task 1.2. Use field-specific treatments and deterministic relationships wherever possible. A missing order_total may be recoverable from order_price, coupon_discount and delivery_charges. A missing distance may be computed from valid coordinates and warehouses.csv. A missing season can be derived from a valid date. Other missing fields may need carefully selected estimation or modeling, with training data and evaluation explained. Do not alter the other observed values in the missing batch: the specification guarantees that those observed values are correct. Document which cells are exactly reconstructed and which are estimated.
+
+---------------------------------------------------------------------
+Student (Zhang Guohou):
+I'm stuck on missing delivery charges. Could I train just one linear regression for the whole dataset? I don't see why we need four separate models.
+
+ChatGPT:
+The published rule says the relationship is season-specific, so fit a separate model for Summer, Autumn, Winter and Spring. For each season, use distance_to_nearest_warehouse, is_expedited_delivery, and is_happy_customer, plus an intercept. Encode both booleans consistently as 0/1. Train on suitable reliable complete observations, or already repaired and verified values. Use a reproducible held-out evaluation and report per-season sample counts, R-squared, and an absolute-error metric. Clean data should normally support a strong relationship, but do not claim a score without running the evaluation.
+
+---------------------------------------------------------------------
+Student (Zhang Guohou):
+I tried thinking about the outliers and I was going to remove the top 5% of delivery_charges. But that sounds a bit random. Is there a better way to decide which rows are actually wrong?
+
+ChatGPT:
+Yes. A high delivery charge is not necessarily an outlier after accounting for distance, season, and customer/delivery flags. Use a reliable seasonal model to compute expected charges and examine residuals: observed charge minus model-predicted charge. Then choose and justify a threshold using residual diagnostics and the behavior of trustworthy observations. Don't assume a fixed percentage of bad rows, and don't infer suspicious rows from order IDs or row positions. Examine whether your rule would remove expensive but otherwise valid deliveries. The outlier dataset's other fields are guaranteed correct, so the required action is to remove clearly anomalous rows rather than adjust their charges.
+
+---------------------------------------------------------------------
+Student (Zhang Guohou):
+So if the actual delivery charge is high but the residual is small, I should probably keep the order? Also, how do I explain that in the notebook without sounding like I'm just guessing?
+
+ChatGPT:
+Generally, a small residual means the charge agrees with what the seasonal model predicts given that order's characteristics, even if the raw charge looks large. Show a residual plot or numerical summary by season, the chosen decision threshold, and examples near the threshold. Explain the logic in terms of the predictors and fit quality, not "it looks too expensive." Report how many rows are kept and removed, and check that every retained order preserves its original data. If the model itself is unreliable, improve or qualify it before using its residuals for removals.
+
+---------------------------------------------------------------------
+Student (Zhang Guohou):
+There's also the audit log. If we delete an outlier row, should we log every column from that order? And can I delete it first and write a note later?
+
+ChatGPT:
+Do not log every column for an outlier removal. The specification calls for one entry per removed order, with `field_name = delivery_charges`, `issue_type = outlier_row`, and `corrected_value = ROW_REMOVED`. Use the original filename and order ID so the removal can be traced. Prefer generating the log entry inside the reproducible removal workflow, then independently reconcile the removed-ID set against the audit entries. Manual after-the-fact notes are easier to miss and won't demonstrate a repeatable audit trail.
+
+---------------------------------------------------------------------
+Student (Zhang Guohou):
+Okay, I think the approach makes sense now. But how do I know whether I'm trusting your advice too much? The assignment says we need to verify AI suggestions, and I don't want to say "ChatGPT checked it" in the report.
+
+ChatGPT:
+Treat my suggestions as hypotheses or coding assistance, not evidence that the cleaning is right. For the cart-price method, validate prices against unused reliable cart equations. For dates, confirm standardized dates and seasons against the published calendar mapping. For distance, test the Haversine implementation on known or independently calculated examples. For VADER, verify the configured local resource checksum and compare scores for test inputs. For seasonal models, report actual held-out metrics and residual diagnostics. For outliers, reconcile removed IDs and audit entries. In your AI declaration, list only the specific tests you actually performed, their actual results, and where a marker can find them.
+
+---------------------------------------------------------------------
+Student (Zhang Guohou):
+Got it. One last check: if I run the notebook and a couple of validation tests fail, should I just remove those tests from the final version? I'm worried it'll look bad.
+
+ChatGPT:
+No. Keep useful failed checks and explain what you investigated, fixed, or could not resolve. The brief explicitly values honest observed outcomes and interpretation. A failure can identify a real data or logic problem; hiding it would make the work less trustworthy. Before submitting, restart the kernel and Run All using configurable paths, recreate the required outputs, reopen them, and check that the three cleaned CSVs, audit_log.csv, and the notebook's Task 3 analysis are reproducible. Do not claim this happened unless you personally carried out that run.
+
+
+======================================================================
