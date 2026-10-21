@@ -31,7 +31,18 @@ from src.outlier_cleaning import clean_outlier_batch
 
 
 GROUP_ID = "Group030"
-DATA_DIR = PROJECT_ROOT / "data" / "raw" / f"{GROUP_ID}_A2"
+DATA_DIR_CANDIDATES = [
+    PROJECT_ROOT / "data" / "raw" / f"{GROUP_ID}_A2",
+    PROJECT_ROOT / f"{GROUP_ID}_A2",
+    PROJECT_ROOT.parent / f"{GROUP_ID}_A2",
+]
+DATA_DIR = next((path for path in DATA_DIR_CANDIDATES if path.is_dir()), None)
+if DATA_DIR is None:
+    checked = ", ".join(str(path) for path in DATA_DIR_CANDIDATES)
+    raise FileNotFoundError(
+        f"Could not locate the supplied {GROUP_ID} input folder. "
+        f"Set DATA_DIR near the top of this file. Checked: {checked}"
+    )
 OUTPUT_DIR = PROJECT_ROOT / "outputs"
 
 DIRTY_INPUT = DATA_DIR / f"{GROUP_ID}_dirty_data.csv"
